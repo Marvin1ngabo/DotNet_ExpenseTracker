@@ -14,7 +14,7 @@ static class Program
         catch (Exception ex)
         {
             File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "etms_error.log"), ex.ToString());
-            MessageBox.Show("Could not initialise the Oracle database:" + Environment.NewLine + Environment.NewLine + ex.GetBaseException().Message,
+            MessageBox.Show("Could not initialise the MySQL database (is XAMPP MySQL running?):" + Environment.NewLine + Environment.NewLine + ex.GetBaseException().Message,
                 "ETMS - database error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
