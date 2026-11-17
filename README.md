@@ -1,6 +1,6 @@
 # Expense Tracker Management System (ETMS) - WinForms / .NET
 
-Desktop implementation of the ETMS SRS (C#, WinForms, **MVC**, EF Core + Oracle XE).
+Desktop implementation of the ETMS SRS (C#, WinForms, **MVC**, EF Core + MySQL).
 
 ## Architecture (MVC)
 | Layer | Folder | Role |
@@ -22,12 +22,12 @@ Requires the .NET SDK 10 on Windows.
     cd ExpenseTracker
     dotnet run
 
-Database setup (Oracle XE, one time): open `Database/create_user.sql` in Oracle SQL Developer, connect as SYSTEM to `XEPDB1`, and run it as a script. This creates the `ETMS` user. The app then creates its tables on first run.
-The connection string is in `Data/AppDbContext.cs` (default `localhost:1521/XEPDB1`, user `ETMS`); override it with the `ETMS_CONNECTION` environment variable.
+Database setup (MySQL, e.g. XAMPP): start MySQL, open phpMyAdmin (`http://localhost/phpmyadmin`) and create an empty database named `Expense_Tracker`. The app creates its tables (`users`, `categories`, `transactions`, `budgets`) and the default data on first run.
+The connection string is in `Data/AppDbContext.cs` (default: `localhost:3306`, database `Expense_Tracker`, user `root`, empty password). To use other credentials, create `ExpenseTracker/connection.local.txt` (git-ignored) containing, for example `Server=localhost;Port=3306;Database=Expense_Tracker;User=root;Password=yourpassword;` or set the `ETMS_CONNECTION` environment variable.
 Default admin: `admin@etms.local` / `Admin@123` (change after first login). Register a normal user from the Register tab.
 
 ## Notes
-- The SRS proposes SQL Server; Oracle XE is used here because it is installed and viewable in Oracle SQL Developer. Only the provider in `AppDbContext` would change for SQL Server.
+- The SRS proposes SQL Server; MySQL is used here as required by the lecturer. Only the provider in `AppDbContext` would change for SQL Server.
 - Backup/restore (admin) uses a JSON file.
-- Amounts are `decimal` in C# and `NUMBER(18,2)` in the database.
+- Amounts are `decimal` in C# and `DECIMAL(18,2)` in the database.
 - PDF export, receipts, recurring transactions and password reset e-mail (low/medium priority) are not implemented.
